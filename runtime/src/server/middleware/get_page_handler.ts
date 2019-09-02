@@ -278,12 +278,12 @@ export function get_page_handler(
 				script += `if('serviceWorker' in navigator)navigator.serviceWorker.register('${req.baseUrl}/service-worker.js');`;
 			}
 
-			const file = [].concat(build_info.assets.main).filter(file => file && /\.js$/.test(file))[0];
+			const file = [].concat(build_info.assets.main).find(file => file && file.endsWith('.js'));
 			const main = `${req.baseUrl}/client/${file}`;
 
 			if (build_info.bundler === 'rollup') {
 				if (build_info.legacy_assets) {
-					const legacy_main = `${req.baseUrl}/client/legacy/${build_info.legacy_assets.main}`;
+					const legacy_main = `${req.baseUrl}/client/${build_info.legacy_assets.main}`;
 					script += `(function(){try{eval("async function x(){}");var main="${main}"}catch(e){main="${legacy_main}"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="${req.baseUrl}/client/shimport@${build_info.shimport}.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());`;
 				} else {
 					script += `var s=document.createElement("script");try{new Function("if(0)import('')")();s.src="${main}";s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="${req.baseUrl}/client/shimport@${build_info.shimport}.js";s.setAttribute("data-main","${main}")}document.head.appendChild(s)`;

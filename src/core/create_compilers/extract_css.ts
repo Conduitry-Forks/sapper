@@ -121,8 +121,7 @@ export default function extract_css(
 
 	if (!client_result.css_files) return; // Rollup-only for now
 
-	let asset_dir = `${dirs.dest}/client`;
-	if (process.env.SAPPER_LEGACY_BUILD) asset_dir += '/legacy';
+	const asset_dir = `${dirs.dest}/client`;
 
 	const unclaimed = new Set(client_result.css_files.map(x => x.id));
 
@@ -230,11 +229,7 @@ export default function extract_css(
 		const source = fs.readFileSync(`${asset_dir}/${file}`, 'utf-8');
 
 		const replaced = source.replace(/(\\?["'])__SAPPER_CSS_PLACEHOLDER:([^"']+?)__\1/g, (m, quotes, route) => {
-			let replacement = JSON.stringify(
-				process.env.SAPPER_LEGACY_BUILD && result.chunks[route] ?
-					result.chunks[route].map(_ => `legacy/${_}`) :
-					result.chunks[route]
-			);
+			let replacement = JSON.stringify(result.chunks[route]);
 
 			// If the quotation marks are escaped, then
 			// the source code is in a string literal

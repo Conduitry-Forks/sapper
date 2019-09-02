@@ -12,13 +12,13 @@ export default {
 		},
 
 		output: (): OutputOptions => {
-			let dir = `${dest}/client`;
-			if (process.env.SAPPER_LEGACY_BUILD) dir += `/legacy`;
+			let name = '[name].[hash].js';
+			if (process.env.SAPPER_LEGACY_BUILD) name = 'legacy_' + name;
 
 			return {
-				dir,
-				entryFileNames: '[name].[hash].js',
-				chunkFileNames: '[name].[hash].js',
+				dir: `${dest}/client`,
+				entryFileNames: name,
+				chunkFileNames: name,
 				format: 'esm',
 				sourcemap
 			};
