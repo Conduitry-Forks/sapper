@@ -156,11 +156,8 @@ export default class RollupCompiler {
 		// temporarily override require
 		const defaultLoader = require.extensions['.js'];
 		require.extensions['.js'] = (module: any, filename: string) => {
-			if (filename === input) {
-				module._compile(code, filename);
-			} else {
-				defaultLoader(module, filename);
-			}
+			require.extensions['.js'] = defaultLoader;
+			module._compile(code, filename);
 		};
 
 		const config: any = require(input);
