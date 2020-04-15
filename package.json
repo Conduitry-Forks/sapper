@@ -1,6 +1,6 @@
 {
   "name": "sapper",
-  "version": "0.27.12",
+  "version": "0.27.13-a.0",
   "description": "The next small thing in web development, powered by Svelte",
   "bin": {
     "sapper": "./sapper"
@@ -67,7 +67,6 @@
     "test": "mocha --opts mocha.opts",
     "pretest": "npm run build",
     "build": "rm -rf dist && rollup -c",
-    "prepare": "npm run build",
     "dev": "rollup -cw",
     "prepublishOnly": "npm test"
   },
