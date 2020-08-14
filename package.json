@@ -77,7 +77,6 @@
     "build": "rm -rf dist && rollup -c",
     "check": "rm -rf dist && cross-env TS_CHECK_ENABLED=true rollup -c",
     "lint": "eslint \"{src,runtime}/**/*.{ts,js}\"",
-    "prepare": "npm run build",
     "dev": "rollup -cw",
     "prepublishOnly": "npm test"
   },
